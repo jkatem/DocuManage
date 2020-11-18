@@ -1,25 +1,54 @@
-import logo from './logo.svg';
+import React from 'react';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import { NavBar } from './components/navbar';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { getMatters } from './redux/actions/mattersActions';
+import { connect } from 'react-redux'
+import MattersContainer from './containers/MattersContainer'; 
+import Sidebar from './components/Sidebar';
+import { Home } from './components/home'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component {
+
+  componentDidMount() {
+    // fetch('http://localhost:3000/api/v1/matters')
+    this.props.getMattersWithDispatch()
+  }
+
+ 
+  render() {
+    // console.log(this.props)
+
+    return (
+      <React.Fragment>
+        <Router>
+       
+            <NavBar />
+
+            <Sidebar />
+
+            <Switch>
+              <Route exact path="/matters" render={props => ( <MattersContainer { ...props} /> )} />
+            </Switch>
+
+
+        </Router>
+      </React.Fragment>
+
+    )
+  }
 }
 
-export default App;
+// const mSTP = (state) => ({ state })
+
+
+const mDTP = (dispatch) => {
+  return {
+    getMattersWithDispatch: () => dispatch(getMatters())
+  }
+}
+
+
+export default connect(null, mDTP)(App)
