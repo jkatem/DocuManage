@@ -1,19 +1,33 @@
- const ADD_MATTER = 'ADD_MATTER'
+const FETCH_MATTERS = 'FETCH_MATTERS'
+// const ADD_MATTER = 'ADD_MATTER'
 
- export const addMatter = (newMatterObj, history) => {
-     return (dispatch) => {
-        fetch('http://localhost:3000/matters'), {
-            method: 'POST',
+export const fetchMatters = () => {
+    return (dispatch) => {
+        fetch('http://localhost:3000/api/v1/matters')
+        .then(resp => resp.json())
+        .then(jsonResp => {
+            dispatch({ type: FETCH_MATTERS, payload: jsonResp})
+        })
+    }
+}
+
+export const addMatter = (newMatterObj, history) => {
+    // debugger
+    // console.log(matter)
+    return (dispatch) => {
+        fetch('http://localhost:3000/api/v1/matters', {
+            method: "POST",
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'Accepts': 'application/json'
             },
             body: JSON.stringify(newMatterObj)
         })
         .then(resp => resp.json())
-        .then(data => dispatch({ type: ADD_MATTER, payload: data })) 
-        history.push(`/matters/${data.id}`)
-    })
- }
-
- 
+        .then(data => {
+            // debugger
+            dispatch({type: 'ADD_MATTER', payload: data})
+            history.push('/matters')
+        })
+    }
+}
