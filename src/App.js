@@ -3,18 +3,20 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { NavBar } from './components/navbar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { getMatters } from './redux/actions/mattersActions';
+
 import { connect } from 'react-redux'
 import MattersContainer from './containers/MattersContainer'; 
+
 import Sidebar from './components/Sidebar';
-import { Home } from './components/home'
+import { fetchMatters } from './redux/actions/mattersActions';
+import MatterForm from './components/matters/MatterForm';
+import Matter from './components/matters/Matter'
 
 
 class App extends React.Component {
 
-  componentDidMount() {
-    // fetch('http://localhost:3000/api/v1/matters')
-    this.props.getMattersWithDispatch()
+  componentDidMount(){
+    this.props.fetchMatters()
   }
 
  
@@ -23,14 +25,31 @@ class App extends React.Component {
 
     return (
       <React.Fragment>
-        <Router>
-       
+        <Router>      
             <NavBar />
-
             <Sidebar />
-
             <Switch>
-              <Route exact path="/matters" render={props => ( <MattersContainer { ...props} /> )} />
+              <div className="matters-container">
+                {/* <Route exact path="/matters" render={(routerProps) => {(<MattersContainer { ...routerProps}/>}/> */}
+                <Route exact path="/matters" component={MattersContainer} />
+                <Route exact path="/matters/new" render={(routerProps) => <MatterForm {...routerProps} />} />
+                <Route exact path="/matters/:id" render={(routerProps) => {
+                  const matterId = parseInt(routerProps.match.params.id)
+                  // debugger
+                  const matterObj = this.props.state.matterReducer.matters.find(matterArrObj => matterArrObj.id === matterId)
+                  
+                  if (matterObj) {
+                    return (
+                      <Matter key={matterObj.id}
+                              matters={matterObj}
+                               />
+                    )
+                  }
+                }
+                } />
+              </div>
+             
+
             </Switch>
 
 
@@ -41,14 +60,14 @@ class App extends React.Component {
   }
 }
 
-// const mSTP = (state) => ({ state })
+const mSTP = (state) => ({ state })
 
 
-const mDTP = (dispatch) => {
+const mDTP = dispatch => {
   return {
-    getMattersWithDispatch: () => dispatch(getMatters())
+    fetchMatters: () => dispatch(fetchMatters())
   }
 }
 
 
-export default connect(null, mDTP)(App)
+export default connect(mSTP, mDTP)(App)
