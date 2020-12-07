@@ -21,8 +21,6 @@ class App extends React.Component {
 
  
   render() {
-    // console.log(this.props)
-
     return (
       <React.Fragment>
         <Router>      
@@ -30,7 +28,6 @@ class App extends React.Component {
             <Sidebar />
             <Switch>
               <div className="matters-container">
-                {/* <Route exact path="/matters" render={(routerProps) => {(<MattersContainer { ...routerProps}/>}/> */}
                 <Route exact path="/matters" component={MattersContainer} />
                 <Route exact path="/matters/new" render={(routerProps) => <MatterForm {...routerProps} />} />
                 <Route exact path="/matters/:id" render={(routerProps) => {
@@ -42,20 +39,16 @@ class App extends React.Component {
                     return (
                       <Matter key={matterObj.id}
                               matters={matterObj}
-                               />
+                              {...routerProps}
+                      />
                     )
-                  }
+                  } 
                 }
-                } />
-              </div>
-             
-
+                }/>
+              </div>     
             </Switch>
-
-
         </Router>
       </React.Fragment>
-
     )
   }
 }

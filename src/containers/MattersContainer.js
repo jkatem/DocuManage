@@ -1,4 +1,7 @@
-import React from 'react'
+// import React from 'react'
+import React, { Component } from 'react'
+// import Matter from '../components/matters/Matter'
+
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom";
 import Table from '@material-ui/core/Table';
@@ -10,11 +13,11 @@ import Paper from '@material-ui/core/Paper';
 
 
 
-const MattersContainer = (props) => {
+class MattersContainer extends Component {
 
-
+render() {
   return (
-    <div className="matter">
+    <div className="matter" >
       <h3>Your Matters</h3>
       <Paper style={{ overflow:'hidden',margin: '5px', display: 'flex',justifyContent: 'space-between' }}>
 
@@ -27,7 +30,7 @@ const MattersContainer = (props) => {
         </TableHead>
 
         <TableBody>
-          {props.mattersArr.map((matter => (
+          {this.props.mattersArr.map((matter => (
             <TableRow >
               <TableCell>
                   <Link to={`/matters/${matter.id}`}>{matter.case_title}</Link>
@@ -38,16 +41,22 @@ const MattersContainer = (props) => {
             </TableRow>
           )))}
         </TableBody>
+
       </Table>   
       </Paper>
     </div>
   )
 }
-
-const mSTP = state => {
-  return {    
-    mattersArr: state.matterReducer.matters
-  }
 }
 
-export default connect(mSTP)(MattersContainer);
+const mSTP = state => {
+  return {mattersArr: state.matterReducer.matters};
+}
+
+// const mSTP = ({ matters }) => ({ matters })
+
+const mDTP = dispatch => ({
+  deleteMatter: id => dispatch({type: "DELETE_BAND", id})
+});
+
+export default connect(mSTP, mDTP)(MattersContainer);

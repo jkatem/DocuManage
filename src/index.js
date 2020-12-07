@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
-// import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk'
 import './index.css';
 import App from './App';
+// import rootReducer from './redux/reducers/combineReducers';
 import rootReducer from './redux/reducers/combineReducers';
 
 const store = createStore(

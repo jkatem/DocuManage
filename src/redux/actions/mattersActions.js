@@ -8,6 +8,7 @@ export const fetchMatters = () => {
         .then(jsonResp => {
             dispatch({ type: FETCH_MATTERS, payload: jsonResp})
         })
+
     }
 }
 
@@ -29,5 +30,25 @@ export const addMatter = (newMatterObj, history) => {
             dispatch({type: 'ADD_MATTER', payload: data})
             history.push('/matters')
         })
+
+    }
+}
+
+export const deleteMatter = (matterId, history) => {
+// debugger 
+    return (dispatch) => {
+        fetch(`http://localhost:3000/api/v1/matters/${matterId}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+                'Accepts': 'application/json'
+            }
+        })
+        .then(resp => (resp.json()))
+        .then(deletedObj => {            
+            dispatch({type: 'DELETE_MATTER', payload: deletedObj})
+            history.push('/matters')
+        })
+       
     }
 }
