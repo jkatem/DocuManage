@@ -1,29 +1,61 @@
-// import React from 'react';
-// import { connect } from 'react-redux';
-
 import React from 'react'
 import { connect } from 'react-redux'
-import getTasks from '../redux/actions/tasksActions'
+import { Link } from "react-router-dom";
+
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import { getTasks } from '../redux/actions/tasksActions'
+// import TaskItem from '../components/tasks/TaskItem'
 
 
 class TasksContainer extends React.Component {
 
     componentDidMount() {
-        // fetch('http://localhost:3000/api/v1/tasks')
-        // .then(resp => resp.json())
-        // .then(resp => console.log(resp))
-        this.props.getTasksWithDispatch()
+        this.props.getTasks()
     }
 
     render() {
+        console.log(this.props)
         return (
-            <div>
-                <h1>Tasks</h1>
-                {this.props.tasks.map(taskObj =>
-                <ul>{taskObj.attributes.case_name}
-                </ul>
-                )}                   
+            <div className="matter">
+            <h3>Your Tasks</h3>
+            <Paper style={{ overflow:'hidden',margin: '5px', display: 'flex',justifyContent: 'space-between' }}>
+    
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Task</TableCell>
+                  <TableCell>Matter</TableCell>
+                </TableRow>
+              </TableHead>
+    
+              <TableBody>
+                {this.props.tasks.map((task => (
+                  <TableRow key={task.id} >
+                    <TableCell>
+                        <Link to={`/tasks/${task.id}`}>{task.task_name} </Link>                
+                    </TableCell>
+                    <TableCell>
+                        {task.client}
+                    </TableCell>
+                  </TableRow>
+                )))}
+              </TableBody>
+            </Table>   
+            </Paper>
             </div>
+            // <div>
+            //     {this.props.tasks.map(task => (
+            //         <TaskItem 
+            //             key={task.id}
+            //             tasks={task} />
+            //     ))}
+                   
+            // </div>
         )
     }
 }
@@ -34,12 +66,12 @@ const mSTP = state => {
     }
 }
 
-const mDTP = dispatch => {
-    return {
-        getTasksWithDispatch: () => dispatch(getTasks())
-    }
-}
+// const mDTP = dispatch => {
+//     return {
+//         getTasksWithDispatch: () => dispatch(getTasks())
+//     }
+// }
 
 
 
-export default connect(mSTP, mDTP)(TasksContainer)
+export default connect(mSTP, { getTasks })(TasksContainer)

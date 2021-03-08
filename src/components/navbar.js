@@ -1,7 +1,11 @@
 
 import React from 'react';
-import { Nav, Navbar } from 'react-bootstrap';
+// import SearchBar from './SearchBar'
+import { Nav, Navbar, Form, FormControl, Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+import MattersContainer from '../containers/MattersContainer';
+import mattersReducer from '../redux/reducers/matterReducer'
 
 
 
@@ -23,20 +27,65 @@ const Styles = styled.div`
   }
 `;
 
-export const NavBar = () => (
-  <Styles>
-    <Navbar expand="lg">
-      <Navbar.Brand href="/">DocuManage</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-      {/* <Form className="form-center">
-        <FormControl type="text" placeholder="Search" className="" />
-      </Form> */}
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ml-auto">
-          <Nav.Item><Nav.Link href="/">Home</Nav.Link></Nav.Item> 
-          <Nav.Item><Nav.Link href="/matters/new">Create New Matter</Nav.Link></Nav.Item>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
-  </Styles>
-)
+class NavBar extends React.Component  {
+
+  state = {
+    searchString: '',
+    // filteredMatter: []
+  }
+
+  handleChange = event => {
+    this.setState({
+      searchString: event.target.value
+    })
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    
+  }
+
+
+
+    render(){
+      console.log(this.state.matters)
+
+
+      return (
+        <>
+        <Styles>
+        <Navbar expand="lg">
+          <Navbar.Brand href="/">DocuManage</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+          <Form className="form-center">
+            <FormControl 
+              onSubmit={this.handleSubmit}
+              onChange={this.handleChange}
+              name="search"
+              value={this.state.value}
+              type="text" 
+              placeholder="Search" 
+              className="" />
+            <Button onsubmit variant="primary" type="submit" >
+                Submit
+            </Button>      
+          </Form>
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ml-auto">
+              <Nav.Item><Nav.Link href="/">Home</Nav.Link></Nav.Item> 
+              <Nav.Item><Nav.Link href="/matters/new">Create New Matter</Nav.Link></Nav.Item>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+      </Styles>
+      </>
+      )
+    }
+}
+const maptStateToProps = state => {
+  return {
+    matters: state.matterReducer.matters
+  }
+}
+
+export default connect(maptStateToProps)(NavBar)

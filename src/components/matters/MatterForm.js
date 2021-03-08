@@ -15,8 +15,6 @@ class MatterForm extends Component {
         status: '',
         open_date: '',
         closed_date: '',
-        // matter_id: ''
-        // loading: false
     }
 
     handleOnChange = (event) => {
@@ -26,9 +24,8 @@ class MatterForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-  
         this.props.addMatter(this.state, this.props.history)
-
+        alert('Successfully Created')
         this.setState({
             case_title: '',
             lead_attorney: '',
@@ -40,9 +37,7 @@ class MatterForm extends Component {
             status: '',
             open_date: '',
             closed_date: '',
-            // matter_id: ''
-            // loading: false
-        })
+        }, )
     }
 
     render() {
