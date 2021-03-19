@@ -1,31 +1,24 @@
-const matterReducer = (state = {matters: [], loading: false}, action) => {
 
+const matterReducer = (state = {matters: []}, action) => {
     switch(action.type) {
 
         case "FETCH_MATTERS":
-            // debugger
             return {
-                ...state,
                 matters: action.payload,
-                loading: false                
             }
 
         case "ADD_MATTER":
             return { 
-                ...state,
                 matters: [...state.matters, action.payload]
-                // matters: action.payload
             }
         
-        case "DELETE_MATTER":
-            // debugger
-            // console.log(state)
-            const matters = state.matters.filter(matter => matter.id !== action.payload.id)
-            // console.log(action);
+        case "DELETE_MATTER":   
+            const newMatter = state.matters.filter(matter => matter.id !== action.payload.id)
             return {
-                ...state, matters
+                
+                matters: newMatter
             }
-        
+            
         default:
             return state
     }

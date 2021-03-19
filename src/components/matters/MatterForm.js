@@ -17,15 +17,14 @@ class MatterForm extends Component {
         closed_date: '',
     }
 
-    handleOnChange = (event) => {
+    onChangeHandler = (event) => {
         this.setState({
             [event.target.name]: event.target.value})
     }
 
     handleSubmit = (event) => {
-        event.preventDefault()
+        event.preventDefault();
         this.props.addMatter(this.state, this.props.history)
-        alert('Successfully Created')
         this.setState({
             case_title: '',
             lead_attorney: '',
@@ -38,6 +37,7 @@ class MatterForm extends Component {
             open_date: '',
             closed_date: '',
         }, )
+
     }
 
     render() {
@@ -46,35 +46,35 @@ class MatterForm extends Component {
                 <h2>New Matter:</h2>
           
                     <label>Case Title:</label><br />
-                    <input name="case_title" type="text" value={this.state.case_title} onChange={this.handleOnChange} placeholder="required" required />
+                    <input name="case_title" type="text" value={this.state.case_title} onChange={this.onChangeHandler}/>
                     <br />
                     <label>Lead Attorney:</label><br />
-                    <input name="lead_attorney" type="text" value={this.state.lead_attorney} onChange={this.handleOnChange} placeholder="required" required />
+                    <input name="lead_attorney" type="text" value={this.state.lead_attorney} onChange={this.onChangeHandler}/>
                     <br />
                     <label>Associate Attorney:</label><br />
-                    <input name="associate_attorney" type="text" value={this.state.associate_attorney} onChange={this.handleOnChange} placeholder="required" required />
+                    <input name="associate_attorney" type="text" value={this.state.associate_attorney} onChange={this.onChangeHandler}/>
                     <br />
                     <label>Client:</label><br />
-                    <input name="client" type="text" value={this.state.client} onChange={this.handleOnChange} placeholder="required" required />
+                    <input name="client" type="text" value={this.state.client} onChange={this.onChangeHandler}/>
                     <br />
                     <label>File Number:</label><br />
-                    <input name="file_number" type="text" value={this.state.file_number} onChange={this.handleOnChange} placeholder="required" required />
+                    <input name="file_number" type="text" value={this.state.file_number} onChange={this.onChangeHandler} />
                     <br />
                 
                     <label>Case Description:</label><br />
-                    <textarea name="case_description" type="text" value={this.state.case_description} onChange={this.handleOnChange} placeholder="required" required />
+                    <textarea name="case_description" type="text" value={this.state.case_description} onChange={this.onChangeHandler}/>
                     <br />
                     <label>Practice Area:</label><br />
-                    <input name="practice_area" type="text" value={this.state.practice_area} onChange={this.handleOnChange} placeholder="required" required />
+                    <input name="practice_area" type="text" value={this.state.practice_area} onChange={this.onChangeHandler} />
                     <br />
                     <label>Status:</label><br />
-                    <input name="status" type="text" value={this.state.status} onChange={this.handleOnChange} placeholder="required" required />
+                    <input name="status" type="text" value={this.state.status} onChange={this.onChangeHandler}/>
                     <br />
                     <label>Date Opened:</label><br />
-                    <input name="open_date" type="text" value={this.state.open_date} onChange={this.handleOnChange} placeholder="required" required />
+                    <input name="open_date" type="text" value={this.state.open_date} onChange={this.onChangeHandler}/>
                     <br />
                     <label>Date Closed:</label><br />
-                    <input name="closed_date" type="text" value={this.state.closed_date} onChange={this.handleOnChange} placeholder="required" required />
+                    <input name="closed_date" type="text" value={this.state.closed_date} onChange={this.onChangeHandler}/>
                     <br />
                     <br />
                    

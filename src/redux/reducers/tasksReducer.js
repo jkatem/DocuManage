@@ -4,9 +4,6 @@ let initialState = {
 
 export default function tasksReducer(state = initialState, action) {
 
-    // debugger
-    // console.log(action)
-    // console.log(state)
     switch(action.type) {
         case 'GET_TASKS':
             return {                

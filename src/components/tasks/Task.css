@@ -1,6 +1,9 @@
 .task {
     padding: 2px 40px;
     margin-top: 8px 0;
+}
 
-
+.task-item {
+    padding: 2px 40px;
+    margin-top: 8px 0;
 }

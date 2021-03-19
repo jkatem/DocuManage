@@ -2,70 +2,71 @@ import React from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import NavBar from './components/navbar';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import  SearchBar from './components/SearchBar'
+import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux'
 import MattersContainer from './containers/MattersContainer';
 import Sidebar from './components/Sidebar';
 import { fetchMatters } from './redux/actions/mattersActions';
+import { getTasks } from './redux/actions/tasksActions'
 import MatterForm from './components/matters/MatterForm';
 import Matter from './components/matters/Matter'
 import Home from './components/home';
 import TasksContainer from './containers/TasksContainer';
+import TaskItem from './components/tasks/TaskItem'
 
 
 class App extends React.Component {
-
-  state = {
-    filteredMatter: [],
-  }
 
   componentDidMount(){
     this.props.fetchMatters();
   }
 
- 
-
 
   render() {
- 
-    
 
     return (
-
-      <React.Fragment>
-        
-        <Router>      
-            <NavBar matters={this.state.matters}/>
-            
+      <React.Fragment>          
+            <NavBar />
             <Sidebar />
+            <div className="matters-container">
             <Switch>
-              <div className="matters-container">
+             
                 <Route exact path='/' component={Home} />
                 <Route exact path="/matters">
-                    <MattersContainer />
+                  <MattersContainer matters={this.props.matters}/>
                 </Route>
-                <Route exact path="/matters/new" render={(routerProps) => <MatterForm {...routerProps} />} />
-                <Route exact path="/matters/:id" render={(routerProps) => {
+                <Route path="/matters/new" component={MatterForm} />
+                <Route path="/matters/:id" render={(routerProps) => {
                   const matterId = parseInt(routerProps.match.params.id)
-                  // debugger
                   const matterObj = this.props.matters.find(matterArrObj => matterArrObj.id === matterId)
-                  
                   if (matterObj) {
                     return (
                       <Matter key={matterObj.id}
                               matters={matterObj}
+                              
                               {...routerProps}
                       />
                       )
                   } 
                 }
                 }/>
-                <Route path='/tasks' component={TasksContainer} />
-              </div> 
-                  
+                <Route exact path='/tasks' component={TasksContainer} />
+                <Route path="/tasks/:id" render={(routerProps) => {
+                  const taskId = parseInt(routerProps.match.params.id)
+                  const taskObj = this.props.tasks.find(taskArrObj => taskArrObj.id === taskId)
+                  if (taskObj) {
+                    return (
+                      <TaskItem 
+                        key={taskObj.id}
+                        tasks={taskObj}
+                        {...routerProps}
+                      />
+                    )} 
+                  }
+                }/>
+                             
             </Switch>
-        </Router>
+            </div>   
       </React.Fragment>
     )
   }
@@ -73,18 +74,10 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   return ({
-    matters: state.matterReducer.matters
+    matters: state.matterReducer.matters,
+    tasks: state.tasksReducer.tasks
   })
 }
 
 
-// const mDTP = dispatch => {
-//   return {
-//     fetchMatters: () => dispatch(fetchMatters()),
-
-//     // deleteMatter: () => dispatch(deleteMatter())
-//   }
-// }
-
-
-export default connect(mapStateToProps, {fetchMatters})(App)
+export default connect(mapStateToProps, {fetchMatters, getTasks })(App)

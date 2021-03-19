@@ -1,15 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import MattersContainer from '../containers/MattersContainer';
 import '../css/Home.css';
 
 class Home extends React.Component {
 
     render() {
         return (
-            <div id="content" class>
-                <h6>Today's Agenda</h6>
-            </div>
+           <>
+               {/* <MattersContainer /> */}
+           </>
         )
     }
 }
 
-export default Home
+const mapStateToProps = state => {
+    return {
+        matters: state.matterReducer.matters
+    }
+}
+
+export default connect(mapStateToProps)(Home)

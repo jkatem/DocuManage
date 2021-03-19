@@ -9,7 +9,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { getTasks } from '../redux/actions/tasksActions'
-// import TaskItem from '../components/tasks/TaskItem'
 
 
 class TasksContainer extends React.Component {
@@ -19,17 +18,19 @@ class TasksContainer extends React.Component {
     }
 
     render() {
-        console.log(this.props)
+ 
+
         return (
             <div className="matter">
             <h3>Your Tasks</h3>
-            <Paper style={{ overflow:'hidden',margin: '5px', display: 'flex',justifyContent: 'space-between' }}>
+            <Paper style={{ overflow:'hidden',margin: '5px', display: 'flex', justifyContent: 'space-between' }}>
     
             <Table>
               <TableHead>
                 <TableRow>
                   <TableCell>Task</TableCell>
                   <TableCell>Matter</TableCell>
+
                 </TableRow>
               </TableHead>
     
@@ -40,7 +41,7 @@ class TasksContainer extends React.Component {
                         <Link to={`/tasks/${task.id}`}>{task.task_name} </Link>                
                     </TableCell>
                     <TableCell>
-                        {task.client}
+                        <Link to={`/matters/${task.matter.id}`}></Link>{task.matter.case_title}
                     </TableCell>
                   </TableRow>
                 )))}
@@ -48,14 +49,6 @@ class TasksContainer extends React.Component {
             </Table>   
             </Paper>
             </div>
-            // <div>
-            //     {this.props.tasks.map(task => (
-            //         <TaskItem 
-            //             key={task.id}
-            //             tasks={task} />
-            //     ))}
-                   
-            // </div>
         )
     }
 }
@@ -66,11 +59,6 @@ const mSTP = state => {
     }
 }
 
-// const mDTP = dispatch => {
-//     return {
-//         getTasksWithDispatch: () => dispatch(getTasks())
-//     }
-// }
 
 
 

@@ -1,13 +1,7 @@
 
 import React from 'react';
-// import SearchBar from './SearchBar'
-import { Nav, Navbar, Form, FormControl, Button } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import { Nav, Navbar } from 'react-bootstrap';
 import styled from 'styled-components';
-import MattersContainer from '../containers/MattersContainer';
-import mattersReducer from '../redux/reducers/matterReducer'
-
-
 
 const Styles = styled.div`
   .navbar { background-color: lightblue; }
@@ -29,47 +23,20 @@ const Styles = styled.div`
 
 class NavBar extends React.Component  {
 
-  state = {
-    searchString: '',
-    // filteredMatter: []
-  }
-
-  handleChange = event => {
-    this.setState({
-      searchString: event.target.value
-    })
-  }
-
-  handleSubmit = event => {
-    event.preventDefault();
-    
-  }
-
-
-
-    render(){
-      console.log(this.state.matters)
-
-
+    render(){     
+      
       return (
+
         <>
         <Styles>
         <Navbar expand="lg">
           <Navbar.Brand href="/">DocuManage</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-          <Form className="form-center">
-            <FormControl 
-              onSubmit={this.handleSubmit}
-              onChange={this.handleChange}
-              name="search"
-              value={this.state.value}
-              type="text" 
-              placeholder="Search" 
-              className="" />
-            <Button onsubmit variant="primary" type="submit" >
-                Submit
-            </Button>      
-          </Form>
+          
+           <div className="ui inverted item">
+            <div className="ui fluid category search">
+            </div>
+          </div>
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
               <Nav.Item><Nav.Link href="/">Home</Nav.Link></Nav.Item> 
@@ -82,10 +49,6 @@ class NavBar extends React.Component  {
       )
     }
 }
-const maptStateToProps = state => {
-  return {
-    matters: state.matterReducer.matters
-  }
-}
 
-export default connect(maptStateToProps)(NavBar)
+
+export default (NavBar)

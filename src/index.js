@@ -5,7 +5,6 @@ import {BrowserRouter as Router} from 'react-router-dom'
 
 import './index.css';
 import App from './App';
-// import rootReducer from './redux/reducers/combineReducers';
 import store from './store';
 
 
