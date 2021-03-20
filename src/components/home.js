@@ -7,18 +7,11 @@ class Home extends React.Component {
 
     render() {
         return (
-           <>
-               {/* <MattersContainer /> */}
-           </>
+           <div style={{padding:'20px'}}>
+               Will work on later.
+           </div>
         )
     }
 }
 
-// const mapStateToProps = state => {
-//     return {
-//         matters: state.matterReducer.matters
-//     }
-// }
-
-// export default connect(mapStateToProps)(Home)
 export default Home;
