@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import MattersContainer from '../containers/MattersContainer';
+// import MattersContainer from '../containers/MattersContainer';
 import '../css/Home.css';
 
 class Home extends React.Component {
@@ -14,10 +14,11 @@ class Home extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        matters: state.matterReducer.matters
-    }
-}
+// const mapStateToProps = state => {
+//     return {
+//         matters: state.matterReducer.matters
+//     }
+// }
 
-export default connect(mapStateToProps)(Home)
+// export default connect(mapStateToProps)(Home)
+export default Home;

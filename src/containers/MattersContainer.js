@@ -50,5 +50,3 @@ const mDTP = dispatch => ({
 });
 
 export default connect(null, mDTP)(MattersContainer);
-
-

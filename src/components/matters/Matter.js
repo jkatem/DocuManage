@@ -1,4 +1,3 @@
-
 import React from 'react'
 import { connect } from 'react-redux'
 import { deleteMatter } from '../../redux/actions/mattersActions'
@@ -31,4 +30,5 @@ function Matter(props) {
     )
 }
 export default connect(null, {deleteMatter})(Matter)
+
 
